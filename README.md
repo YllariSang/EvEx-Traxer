@@ -1,81 +1,105 @@
 # EvExTraxer
 
-Card-based run sheet editor that recreates your PDF layout with:
-- PDF-like header/footer (logos + department block + signatures)
+EvExTraxer is a Flutter app for creating and editing event run sheets in a card-based workflow, then generating printable output that matches a PDF-style layout.
+
+It is designed to support both desktop and mobile usage from one codebase, with deployment targets for Windows and Android.
+
+## What This App Is
+
+EvExTraxer is built for event operations teams that need to quickly record and format run-sheet data.
+
+Core capabilities:
+- PDF-like page composition with header and footer elements
 - Editable event log cards
 - Editable product cards
-- Print preview and direct print/export to PDF
-- Single codebase intended for Windows `.exe` and Android `.apk`
+- Print preview
+- Direct print or export to PDF
+- Shared Flutter codebase for Windows executable and Android APK
 
-## 1) Install Flutter
-1. Download Flutter SDK: https://docs.flutter.dev/get-started/install
-2. Add Flutter to PATH.
-3. Run:
-   ```bash
-   flutter doctor
-   ```
+## Setup
 
-## 2) Initialize platform folders (first time only)
-From this project folder:
+### 1) Prerequisites
+Install Flutter and verify your environment:
+
 ```bash
-flutter create .
+flutter doctor
 ```
 
-## 3) Get packages
+If you are targeting Android, install Android Studio and required SDK components.
+
+### 2) Clone and open project
+From your local project folder, run:
+
 ```bash
 flutter pub get
 ```
 
-## 4) Run app
+If platform folders ever need regeneration, run:
+
+```bash
+flutter create .
+```
+
+### 3) Run the app
+Windows:
+
 ```bash
 flutter run -d windows
 ```
-Or for Android device/emulator:
+
+Android device or emulator:
+
 ```bash
 flutter run -d android
 ```
 
-## 5) Build distributables
-Build Windows executable:
+### 4) Build distributables
+Windows release:
+
 ```bash
 flutter build windows
 ```
-Output:
-- `build/windows/x64/runner/Release/` (contains the EXE)
 
-Build Android APK:
+Android APK release:
+
 ```bash
 flutter build apk --release
 ```
-Output:
-- `build/app/outputs/flutter-apk/app-release.apk`
 
-## Notes
-- Source template PDF used: `run_sheet.pdf`
-- Header logos extracted into `assets/images/`
-- Edit data in Event/Product tabs, then print from Print Preview tab.
+Output locations:
+- Windows: `build/windows/x64/runner/Release/`
+- Android APK: `build/app/outputs/flutter-apk/app-release.apk`
 
-## Release Checklist
-- [ ] Run static analysis: `flutter analyze`
-- [ ] Run smoke tests: `flutter test`
-- [ ] Build Windows release: `flutter build windows`
-- [ ] Verify app launch from `build/windows/x64/runner/Release/`
-- [ ] Confirm export/import works with sample photos
-- [ ] Confirm print output matches run sheet layout
+## Tech Stack
 
-## Windows Packaging
-1. Build release: `flutter build windows`
-2. Zip the full `build/windows/x64/runner/Release/` folder
-3. Share the zip to users and run `evextraxer.exe` after extraction
+### Framework and language
+- Flutter
+- Dart (SDK constraint: `>=3.3.0 <4.0.0`)
 
-For installer-based distribution, create MSIX or Inno Setup package from the Release output.
+### Core packages
+- `printing` and `pdf` for document generation and printing workflows
+- `file_picker` and `path_provider` for file import/export and storage paths
+- `shared_preferences` for lightweight local persistence
+- `desktop_drop` for desktop drag-and-drop support
+- `intl` for formatting and localization helpers
+- `archive` for archive/file packaging utilities
 
-## Android Signing Notes
-1. Install Android Studio + SDK and accept licenses:
-   - `flutter doctor --android-licenses`
-2. Create a signing keystore:
-   - `keytool -genkey -v -keystore upload-keystore.jks -keyalg RSA -keysize 2048 -validity 10000 -alias upload`
-3. Configure `android/key.properties` and Gradle signing config
-4. Build signed app:
-   - APK: `flutter build apk --release`
-   - AAB: `flutter build appbundle --release`
+### Platforms
+- Windows desktop
+- Android
+
+## Development Notes
+
+- App assets are stored in `assets/images/`
+- Use `flutter analyze` for static checks
+- Use `flutter test` for test runs
+
+## Packaging Notes
+
+For Windows distribution, build with `flutter build windows` and package the full release directory.
+
+For Android store distribution, configure signing and build an app bundle:
+
+```bash
+flutter build appbundle --release
+```
