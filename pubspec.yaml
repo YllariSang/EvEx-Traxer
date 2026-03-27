@@ -1,0 +1,44 @@
+name: evextraxer
+version: 0.1.0+1
+publish_to: none
+
+environment:
+  sdk: ">=3.3.0 <4.0.0"
+
+dependencies:
+  archive: ^3.6.1
+  flutter:
+    sdk: flutter
+  desktop_drop: ^0.6.0
+  file_picker: ^8.1.2
+  intl: ^0.20.2
+  path_provider: ^2.1.4
+  pdf: ^3.11.1
+  printing: ^5.14.2
+  shared_preferences: ^2.3.2
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+  flutter_lints: ^5.0.0
+  flutter_launcher_icons: ^0.14.3
+
+flutter:
+  uses-material-design: true
+  assets:
+    - assets/images/evex_traxer_app_icon.png
+    - assets/images/logo_left.png
+    - assets/images/logo_right.png
+
+flutter_launcher_icons:
+  image_path: assets/images/evex_traxer_app_icon.png
+  windows:
+    generate: true
+    image_path: assets/images/evex_traxer_app_icon.png
+  android: true
+  min_sdk_android: 21
+  ios: false
+  web:
+    generate: false
+  macos:
+    generate: false
